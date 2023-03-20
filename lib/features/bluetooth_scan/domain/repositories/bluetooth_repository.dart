@@ -1,9 +1,11 @@
 import '../entities/bluetooth_device.dart';
 
 abstract class BluetoothRepository {
-  bool get scannerActive;
+  Future<bool> get scannerActive;
+
+  Stream<List<BluetoothDevice>> get bluetoothDevicesStream;
 
   Future<void> startScan();
 
-  Stream<List<BluetoothDevice>> get bluetoothDevicesStream;
+  Future<void> stopScan();
 }

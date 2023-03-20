@@ -13,9 +13,12 @@ class ScanBluetoothDevices
 
   @override
   Future<Stream<List<BluetoothDevice>>> call(EmptyParameters _) async {
-    if (!_bluetoothRepository.scannerActive) {
-      await _bluetoothRepository.startScan();
-    }
+    // final scannerActive = await _bluetoothRepository.scannerActive;
+
+    // print('scanner active $scannerActive');
+
+    // if (scannerActive)
+    // await _bluetoothRepository.startScan();
 
     return _bluetoothRepository.bluetoothDevicesStream;
   }

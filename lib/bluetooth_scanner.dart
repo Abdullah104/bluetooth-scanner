@@ -1,7 +1,5 @@
 library bluetooth_scanner;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+import 'core/dependency_injection/injection.dart' as injection;
+
+void initializeBluetoothPackage() => injection.initializeDependencyInjection();
