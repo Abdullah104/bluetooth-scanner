@@ -1,8 +1,7 @@
+library bluetooth_scanner;
 
-import 'bluetooth_scanner_platform_interface.dart';
-
-class BluetoothScanner {
-  Future<String?> getPlatformVersion() {
-    return BluetoothScannerPlatform.instance.getPlatformVersion();
-  }
+/// A Calculator.
+class Calculator {
+  /// Returns [value] plus 1.
+  int addOne(int value) => value + 1;
 }
