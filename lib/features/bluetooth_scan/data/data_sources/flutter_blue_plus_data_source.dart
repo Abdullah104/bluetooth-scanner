@@ -23,7 +23,7 @@ class FlutterBluePlusDataSource implements BluetoothDataSource {
     final scannedBluetoothDevices = <BluetoothDeviceModel>[];
     final controller = StreamController<List<BluetoothDeviceModel>>();
 
-    _flutterBluePlus.startScan();
+    _flutterBluePlus.startScan(allowDuplicates: true);
 
     _flutterBluePlus.scanResults.listen((scanResults) {
       for (var scanResult in scanResults) {
