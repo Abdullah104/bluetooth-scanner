@@ -1,8 +1,5 @@
+library bluetooth_scanner;
 
-import 'bluetooth_scanner_platform_interface.dart';
+import 'core/dependency_injection/injection.dart' as injection;
 
-class BluetoothScanner {
-  Future<String?> getPlatformVersion() {
-    return BluetoothScannerPlatform.instance.getPlatformVersion();
-  }
-}
+void initializeBluetoothPackage() => injection.initializeDependencyInjection();
