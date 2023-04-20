@@ -8,9 +8,7 @@ import 'bluetooth_data_source.dart';
 
 @LazySingleton(as: BluetoothDataSource)
 class FlutterBluePlusDataSource implements BluetoothDataSource {
-  const FlutterBluePlusDataSource(this._flutterBluePlus);
-
-  final FlutterBluePlus _flutterBluePlus;
+  final _flutterBluePlus = FlutterBluePlus.instance;
 
   @override
   Future<bool> get scannerActive => _flutterBluePlus.isScanning.last;
