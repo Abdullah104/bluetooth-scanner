@@ -1,9 +1,24 @@
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
 class BluetoothDevice {
   BluetoothDevice({
     required this.macAddress,
     required this.name,
     num? firstRssiReading,
   }) : _rssiReadings = firstRssiReading == null ? [] : [firstRssiReading];
+
+  factory BluetoothDevice.fromFlutterBluePlusScanResult(
+    ScanResult scanResult,
+  ) {
+    final bluetoothDevice = BluetoothDevice(
+      macAddress: scanResult.device.id.id,
+      name: scanResult.device.name,
+    );
+
+    bluetoothDevice.addRssiReading(scanResult.rssi);
+
+    return bluetoothDevice;
+  }
 
   final String macAddress;
   final String name;
