@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart' hide BluetoothDevice;
 
-import './bluetooth_device.dart';
+import 'bluetooth_beacon.dart';
 
 class BluetoothScanner {
   final _flutterBluePlus = FlutterBluePlus.instance;
@@ -17,22 +17,22 @@ class BluetoothScanner {
 
   Future<bool> get scannerActive async => _flutterBluePlus.isScanning.last;
 
-  Stream<List<BluetoothDevice>> get bluetoothDevicesStream {
-    final scannedBluetoothDevices = <BluetoothDevice>[];
-    final controller = StreamController<List<BluetoothDevice>>();
+  Stream<List<BluetoothBeacon>> get bluetoothBeaconsStream {
+    final scannedBluetoothBeacons = <BluetoothBeacon>[];
+    final controller = StreamController<List<BluetoothBeacon>>();
 
     _flutterBluePlus.startScan(allowDuplicates: true);
 
     _flutterBluePlus.scanResults.listen((scanResults) {
       for (var scanResult in scanResults) {
         final bluetoothDevice =
-            BluetoothDevice.fromFlutterBluePlusScanResult(scanResult);
+            BluetoothBeacon.fromFlutterBluePlusScanResult(scanResult);
 
         bool exists = false;
 
-        for (var device in scannedBluetoothDevices) {
-          if (device.macAddress == bluetoothDevice.macAddress) {
-            device.addRssiReading(scanResult.rssi);
+        for (var beacon in scannedBluetoothBeacons) {
+          if (beacon.macAddress == bluetoothDevice.macAddress) {
+            beacon.addRssiReading(scanResult.rssi);
 
             exists = true;
 
@@ -40,10 +40,10 @@ class BluetoothScanner {
           }
         }
 
-        if (!exists) scannedBluetoothDevices.add(bluetoothDevice);
+        if (!exists) scannedBluetoothBeacons.add(bluetoothDevice);
       }
 
-      controller.add(scannedBluetoothDevices);
+      controller.add(scannedBluetoothBeacons);
     });
 
     return controller.stream;

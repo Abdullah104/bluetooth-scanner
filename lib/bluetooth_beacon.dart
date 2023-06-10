@@ -1,16 +1,16 @@
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-class BluetoothDevice {
-  BluetoothDevice({
+class BluetoothBeacon {
+  BluetoothBeacon({
     required this.macAddress,
     required this.name,
     num? firstRssiReading,
   }) : _rssiReadings = firstRssiReading == null ? [] : [firstRssiReading];
 
-  factory BluetoothDevice.fromFlutterBluePlusScanResult(
+  factory BluetoothBeacon.fromFlutterBluePlusScanResult(
     ScanResult scanResult,
   ) {
-    final bluetoothDevice = BluetoothDevice(
+    final bluetoothDevice = BluetoothBeacon(
       macAddress: scanResult.device.id.id,
       name: scanResult.device.name,
     );
@@ -26,7 +26,7 @@ class BluetoothDevice {
 
   @override
   operator ==(Object other) =>
-      other is BluetoothDevice &&
+      other is BluetoothBeacon &&
       other.macAddress == macAddress &&
       other.name == name;
 
@@ -44,5 +44,9 @@ class BluetoothDevice {
     return rssiSum / _rssiReadings.length;
   }
 
-  void addRssiReading(num rssi) => _rssiReadings.add(rssi);
+  void addRssiReading(num rssi) {
+    if (_rssiReadings.length == 100) _rssiReadings.removeAt(0);
+
+    _rssiReadings.add(rssi);
+  }
 }
