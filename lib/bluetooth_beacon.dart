@@ -11,8 +11,8 @@ class BluetoothBeacon {
     ScanResult scanResult,
   ) {
     final bluetoothDevice = BluetoothBeacon(
-      macAddress: scanResult.device.id.id,
-      name: scanResult.device.name,
+      macAddress: scanResult.device.remoteId.str,
+      name: scanResult.device.localName,
     );
 
     bluetoothDevice.addRssiReading(scanResult.rssi);

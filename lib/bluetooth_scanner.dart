@@ -7,23 +7,21 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart' hide BluetoothDevice;
 import 'bluetooth_beacon.dart';
 
 class BluetoothScanner {
-  final _flutterBluePlus = FlutterBluePlus.instance;
-
   BluetoothScanner._();
 
   static final _instance = BluetoothScanner._();
 
   static BluetoothScanner get instance => _instance;
 
-  Future<bool> get scannerActive async => _flutterBluePlus.isScanning.last;
+  Future<bool> get scannerActive async => FlutterBluePlus.isScanning.last;
 
   Stream<List<BluetoothBeacon>> get bluetoothBeaconsStream {
     final scannedBluetoothBeacons = <BluetoothBeacon>[];
     final controller = StreamController<List<BluetoothBeacon>>();
 
-    _flutterBluePlus.startScan(allowDuplicates: true);
+    FlutterBluePlus.startScan(allowDuplicates: true);
 
-    _flutterBluePlus.scanResults.listen((scanResults) {
+    FlutterBluePlus.scanResults.listen((scanResults) {
       for (var scanResult in scanResults) {
         final bluetoothDevice =
             BluetoothBeacon.fromFlutterBluePlusScanResult(scanResult);
@@ -49,7 +47,7 @@ class BluetoothScanner {
     return controller.stream;
   }
 
-  Future<void> startScan() => _flutterBluePlus.startScan();
+  Future<void> startScan() => FlutterBluePlus.startScan();
 
-  Future<void> stopScan() => _flutterBluePlus.stopScan();
+  Future<void> stopScan() => FlutterBluePlus.stopScan();
 }
